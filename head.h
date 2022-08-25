@@ -8,15 +8,15 @@
 
 /// ”казывает, какого типа уравнение
 enum EquationType {
-                   LINEAR = 1, ///< ”казывает на то, что уравнение линейное
+                   LINEAR    = 1, ///< ”казывает на то, что уравнение линейное
                    QUADRATIC = 2 ///< ”казывает на то, что уравнение квадратное
                    };
 
 /// ”казывает, сколько решений имеет уравнение
 enum NumberOfSolutions {
                         ZERO = 0, ///< ”казывает на то, что уравнение имеет 0 решений
-                        ONE = 1, ///< ”казывает на то, что уравнение имеет 1 решение
-                        TWO = 2, ///< ”казывает на то, что уравнение имеет 2 решени€
+                        ONE =  1, ///< ”казывает на то, что уравнение имеет 1 решение
+                        TWO =  2, ///< ”казывает на то, что уравнение имеет 2 решени€
                         INF = -1 ///< ”казывает на то, что уравнение имеет бесконечно решений
                         };
 
@@ -25,18 +25,20 @@ struct solutions {enum EquationType type;
                   double answer1;
                   double answer2;};
 
+
+void Help(void);
 void InputMode (int * format);
 void Usual(void);
 
 //--------------------------¬¬ќƒ--------------------------------------------------------
 void InputAndOutputFormat(int * input, int * output); // вы€снение формата ввода/вывода
-void InputCleaning(void); // очистка ввода
+int InputCleaning(void); // очистка ввода
 void OutputFormat(int input, int output);
 
 //--------------------------–≈Ў≈Ќ»≈-----------------------------------------------------
 void SquareSolver(double a, double b , double c, struct solutions *); // вы€снение типа уравнени€
-static void linearEquation(double b , double c, struct solutions *); // решение линейного уравнени€
-static void QuadraticEquation(double a, double b , double c, struct solutions *); // решение квадратного уравнени€
+void linearEquation(double b , double c, struct solutions *); // решение линейного уравнени€
+void QuadraticEquation(double a, double b , double c, struct solutions *); // решение квадратного уравнени€
 
 //--------------------------¬џ¬ќƒ-------------------------------------------------------
 int DoubleComparison(double a, double b); // сравнение чисел с точностью 0.0001

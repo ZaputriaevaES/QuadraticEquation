@@ -14,7 +14,7 @@ void UniTest(void)
     struct solutions answers = {LINEAR, ZERO, 0, 0};
     double a = NAN, b = NAN, c = NAN;
     int n = 0;
-    double x1 = 0, x2 = 0;
+    double x1 = NAN, x2 = NAN;
     int i = 1;
 
     while(fscanf(test, "%lg%lg%lg", &a, &b, &c) == 3)

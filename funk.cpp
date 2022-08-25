@@ -1,6 +1,11 @@
 #include "head.h"
 
 
+void Help(void)
+{
+    printf("Если вы хотите решать квадратное уравнение в обычном режиме, то введите -u, если начать тестирование, то -t");
+}
+
 void InputMode (int * format)
 {
     assert(format != NULL);
@@ -26,7 +31,7 @@ void InputMode (int * format)
 */
 void Usual(void)
 {
-    int input = -1, output = -1;
+    int input = 1, output = 1;
     InputAndOutputFormat(&input, &output);
 
     FILE * read = stdin;
@@ -42,9 +47,9 @@ void Usual(void)
 
     OutputFormat(input, output);
 
-    struct solutions answers = {LINEAR, ZERO, 0, 0};
+    struct solutions answers = {LINEAR, ZERO, NAN, NAN};
 
-    double a = 0, b = 0, c = 0;
+    double a = NAN, b = NAN, c = NAN;
 
     while(fscanf(read, "%lg%lg%lg", &a, &b, &c) == 3)
         {
@@ -76,9 +81,13 @@ void InputAndOutputFormat(int * input, int * output)
 
     while (w != 1 || (*input != 1 && *input != 2))
     {
-        InputCleaning();
-        printf(" не является допустимым значением. Будте внимательнее, и введите 1 или 2: ");
-        w = scanf("%d", input);
+        if (InputCleaning() == 0)
+        {
+            printf(" не является допустимым значением. Будте внимательнее, и введите 1 или 2: ");
+            w = scanf("%d", input);
+        }
+        else
+            *input = 1;
     }
 
     printf("Отлично!\n"
@@ -88,9 +97,13 @@ void InputAndOutputFormat(int * input, int * output)
 
     while (v != 1 || (*output != 1 && *output != 2))
     {
-        InputCleaning();
-        printf(" не является допустимым значением. Будте внимательнее, и введите 1 или 2: ");
-        v = scanf("%d", output);
+        if (InputCleaning() == 0)
+        {
+            printf(" не является допустимым значением. Будте внимательнее, и введите 1 или 2: ");
+            v = scanf("%d", output);
+        }
+        else
+            *output = 1;
     }
 }
 
@@ -99,11 +112,16 @@ void InputAndOutputFormat(int * input, int * output)
     {Функция считывает, а затем выводит оставленные во входном потоке символы}
     \return {ничего}
 */
-void InputCleaning(void)
+int InputCleaning(void)
 {
     int ch;
     while ((ch = getchar()) != '\n')
+        {
+        if (ch == EOF)
+            return 1;
         putchar(ch);
+        }
+    return 0;
 }
 
 /**
@@ -114,7 +132,7 @@ void InputCleaning(void)
 */
 void OutputFormat(int input, int output)
 {
-    assert(input == 1 || input == 2);
+    assert(input  == 1 || input  == 2);
     assert(output == 1 || output == 2);
 
     if(input == 1)
